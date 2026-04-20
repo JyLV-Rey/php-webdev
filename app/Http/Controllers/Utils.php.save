@@ -1,0 +1,33 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Support\Facades\Log;
+use Illuminate\Http\Request;
+
+class Utils extends Controller
+{
+    public static function add($num1, $num2) {
+        Log::debug("Adding $num1 and $num2");
+        return $num1 + $num2;
+    }
+
+    public static function subtract($num1, $num2) {
+        Log::debug("Subtracting $num2 from $num1");
+        return $num1 - $num2;
+    }
+
+    public static function product($param1, $param2) {
+        Log::debug("Multiplying $param1 and $param2");
+        return $param1 * $param2;
+    }
+
+    public static function quotient($param1, $param2) {
+        Log::debug("Dividing $param1 by $param2");
+        if ($param2 == 0) {
+            Log::warning("Attempted division by zero: $param1 / $param2");
+            return "Cannot divide by zero";
+        }
+        return $param1 / $param2;
+    }
+}
