@@ -13,6 +13,26 @@
             <p class="text-center login-subtitle">Please enter your details</p>
           </div>
 
+          @if ($errors->any())
+          <div class="alert alert-danger" role="alert">
+            @foreach ($errors->all() as $error)
+            <ul class="mb-0">
+              <li>{{ $error }}</li>
+            </ul>
+            @endforeach
+          </div>
+          @endif
+
+          @if (session('success'))
+          <div class="alert alert-success" role="alert">
+            {{ session('success') }}
+          </div>
+          @elseif (session('error'))
+          <div class="alert alert-danger" role="alert">
+            {{ session('error') }}
+          </div>
+          @endif
+
           <div class="row g-3 mb-3">
             <div class="col-12 col-sm-4">
               <label for="firstName" class="form-label">

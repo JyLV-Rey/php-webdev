@@ -12,11 +12,14 @@ Route::get('/', function () {
 
 Route::get('login', function () {
     return view('login');
-});
+})->name('login');
+
+Route::get('login', [UserController::class, 'login'])->name('login.submit');
+
 
 Route::get('register', function () {
     return view('register');
-});
+})->name('register');
 
 Route::get('/aboutme', [AboutMeController::class, 'index'])->name('aboutme');
 
@@ -31,6 +34,5 @@ Route::group(['prefix' => 'user'], function () {
     Route::get('edit/{id}/{name}', [UserController::class, 'userEditParam'])->name('userEdit');
 });
 
-Route::post('/register/submit', [UserController::class, 'register'])->name('register.submit');
-
+Route::post('register', [UserController::class, 'register'])->name('register.submit');
 Route::fallback([FallbackController::class, 'index']);

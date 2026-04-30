@@ -10,26 +10,36 @@
   <div class="row g-4 justify-content-center">
 
     <!-- Left: Login -->
-    <div class="col-12 col-md-4 col-lg-3">
+    <form method="GET" action="{{ route('login.submit') }}" class="col-12 col-md-4 col-lg-3">
+      @csrf
       <div class="glass-panel login-section h-100">
+
         <h2 class="login-title"><i class="bi bi-box-arrow-in-right"></i> Login</h2>
         <p class="login-subtitle">Please enter your credentials</p>
 
         <div class="glass-input-group">
           <label for="email">Email Address</label>
-          <input type="email" id="email" placeholder="you@email.com" />
+          <input type="email" id="email" name="email" placeholder="you@email.com" />
         </div>
-
+        @if (session('success'))
+        <div class="alert alert-success" role="alert">
+          {{ session('success') }}
+        </div>
+        @elseif (session('error'))
+        <div class="alert alert-danger" role="alert">
+          {{ session('error') }}
+        </div>
+        @endif
         <div class="glass-input-group">
           <label for="password">Password</label>
-          <input type="password" id="password" placeholder="••••••••" />
+          <input type="password" id="password" name="password" placeholder="••••••••" />
         </div>
 
         <a href="#" class="forgot-link">Forgot Password?</a>
 
-        <button class="btn-aero">Login</button>
+        <button type="submit" class="btn-aero">Login</button>
       </div>
-    </div>
+    </form>
 
     <!-- Right: Pricing -->
     <div class="col-12 col-md-8 col-lg-9">
