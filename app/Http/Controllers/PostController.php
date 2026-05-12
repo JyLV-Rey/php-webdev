@@ -23,7 +23,8 @@ class PostController extends Controller
             'created_by' => 1
         ]);
 
-        Log::info("Post created".$request);
+        Log::info("Post Title: ".$request->title);
+        Log::info("Post Description: ".$request->description);
         return redirect('post');
     }
 }
