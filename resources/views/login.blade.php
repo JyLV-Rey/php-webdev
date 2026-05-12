@@ -17,19 +17,18 @@
         <h2 class="login-title"><i class="bi bi-box-arrow-in-right"></i> Login</h2>
         <p class="login-subtitle">Please enter your credentials</p>
 
+        @if(session('success'))
+            <div class="alert alert-success">{{ session('success') }}</div>
+        @endif
+
+        @if(session('error'))
+            <div class="alert alert-danger">{{ session('error') }}</div>
+        @endif
         <div class="glass-input-group">
           <label for="email">Email Address</label>
           <input type="email" id="email" name="email" placeholder="you@email.com" />
         </div>
-        @if (session('success'))
-        <div class="alert alert-success" role="alert">
-          {{ session('success') }}
-        </div>
-        @elseif (session('error'))
-        <div class="alert alert-danger" role="alert">
-          {{ session('error') }}
-        </div>
-        @endif
+
         <div class="glass-input-group">
           <label for="password">Password</label>
           <input type="password" id="password" name="password" placeholder="••••••••" />

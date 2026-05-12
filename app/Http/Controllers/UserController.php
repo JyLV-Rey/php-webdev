@@ -79,15 +79,17 @@ class UserController extends Controller
 
         $users = DB::table('users')
             ->select('*')
-            ->where('email', '=', $email, 'and')
+            ->where('email', '=', $email)
             ->where('password', '=', $hash_pw)
             ->get();
 
         Log::INFO("Users: " . $users);
 
         if ($users->count() > 0) {
+            Log::INFO("Login Success");
             return view('login')->with('success', 'Logged in as: ' . $users[0]->first_name . ' ' . $users[0]->last_name . ' logged in successfully!');
         } else {
+            Log::INFO("Login Failed");
             return view('login')->with('error', 'Invalid credentials!');
         }
     }
