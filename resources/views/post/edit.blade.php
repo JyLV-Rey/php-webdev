@@ -6,7 +6,7 @@
 
   <h3 class="mb-4">Forum</h3>
 
-  <form method="POST" action="{{ route('post.store') }}" class="mb-5">
+  <form method="POST" action="{{ route('post.update', $post->id) }}" class="mb-5">
     @csrf
     <div class="mb-3">
       <label for="title" class="form-label">Title</label>

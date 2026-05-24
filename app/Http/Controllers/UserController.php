@@ -11,7 +11,7 @@ class UserController extends Controller
 {
     public function index()
     {
-        return "Delete User";
+        return view('register');
     }
 
     public function userInputParam($id, $name)

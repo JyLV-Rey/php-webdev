@@ -12,7 +12,8 @@ class PostController extends Controller
         $posts = DB::table('post')
             ->leftJoin('status', 'post.status', '=', 'status.id')
             ->leftJoin('users', 'post.created_by', '=', 'users.id')
-            ->select('post.*', 'status.display_name as status_display_name', 'status.name as status_name', 'users.first_name as created_by_name')->get();
+            ->select('post.*', 'status.display_name as status_display_name', 'status.name as status_name', 'users.first_name as created_by_name')
+            ->get();
 
         foreach($posts as $post) {
             Log::info("RETRIEVED id: ".$post->id);
@@ -38,12 +39,10 @@ class PostController extends Controller
             'created_by' => 1
         ]);
 
-
-
         Log::info("Post Title: ".$request->title);
         Log::info("Post Description: ".$request->description);
 
-        return redirect('post.index');
+        return redirect()->route('post.index');
     }
 
     public function editForm($id) {
@@ -52,6 +51,23 @@ class PostController extends Controller
 
 
         return view('post.edit', compact('post', 'status'));
+    }
+
+    public function update(Request $request, $id) {
+        Log::info("UPDATE CALLED - id: ".$id.", title: ".$request->title.", status: ".$request->status);
+
+        $affected = DB::table('post')
+            ->where('id', '=', $id)
+            ->update([
+                'title' => $request->title,
+                'description' => $request->description,
+                'status' => $request->status,
+                'updated_at' => now()->toDateString(),
+            ]);
+
+        Log::info("Updated Post id: ".$id." - rows affected: ".$affected." - Title: ".$request->title);
+
+        return redirect()->route('post.index');
     }
 }
 

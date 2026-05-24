@@ -22,9 +22,8 @@ Route::group(['prefix' => 'post'], function () {
     Route::post('edit/{id}', [PostController::class, 'update'])->name('post.update');
 });
 
-Route::get('register', function () {
-    return view('register');
-})->name('register');
+Route::get('register', [UserController::class, 'index'])->name('register');
+Route::post('register', [UserController::class, 'register'])->name('register.submit');
 
 Route::get('/aboutme', [AboutMeController::class, 'index'])->name('aboutme');
 
@@ -39,5 +38,4 @@ Route::group(['prefix' => 'user'], function () {
     Route::get('edit/{id}/{name}', [UserController::class, 'userEditParam'])->name('userEdit');
 });
 
-Route::post('register', [UserController::class, 'register'])->name('register.submit');
 Route::fallback([FallbackController::class, 'index']);
