@@ -15,8 +15,12 @@ Route::get('/', function () {
 Route::get('login', [UserController::class, 'login'])->name('login');
 Route::post('login', [UserController::class, 'login'])->name('login.submit');
 
-Route::get('post' , [PostController::class, 'index'])->name('post.index');
-Route::post('post' , [PostController::class, 'store'])->name('post.store');
+Route::group(['prefix' => 'post'], function () {
+    Route::get('' , [PostController::class, 'index'])->name('post.index');
+    Route::post('' , [PostController::class, 'store'])->name('post.store');
+    Route::get('edit/{id}', [PostController::class, 'editForm'])->name('post.edit');
+    Route::post('edit/{id}', [PostController::class, 'update'])->name('post.update');
+});
 
 Route::get('register', function () {
     return view('register');

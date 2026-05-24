@@ -16,6 +16,16 @@
       <label for="description" class="form-label">Description</label>
       <textarea class="form-control" id="description" name="description" rows="4" placeholder="Write your post..." required></textarea>
     </div>
+
+    <div class="mb-3">
+      <label for="status" class="form-label">Status</label>
+        <select class="form-select" id="status" name="status" required>
+            <option value="" selected>Choose...</option>
+                @foreach ($status as $stat)
+                    <option value="{{ $stat->id }}">{{ $stat->display_name }}</option>
+                @endforeach
+        </select>
+    </div>
     <button type="submit" class="btn btn-primary">Submit</button>
   </form>
 
@@ -27,6 +37,8 @@
           <th>Description</th>
           <th>Created By</th>
           <th>Status</th>
+          <th>Created Date</th>
+          <th>Action</th>
         </tr>
       </thead>
       <tbody>
@@ -34,8 +46,15 @@
         <tr>
           <td>{{ $post->title }}</td>
           <td>{{ $post->description }}</td>
-          <td>{{ $post->created_by }}</td>
-          <td>{{ $post->status }}</td>
+          <td>{{ $post->created_by_name }}</td>
+          <td>{{ $post->status_display_name }}</td>
+          <td>{{ $post->created_at }}</td>
+          <td>
+            @if($post->status_name != 'published')
+            <a class="bi bi-pencil-square" href={{ 'post/edit/' . $post->id }}></a>
+            <a class="bi bi-trash red alert-delete" href=""></a>
+            @endif
+          </td>
         </tr>
         @endforeach
       </tbody>

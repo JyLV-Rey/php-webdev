@@ -1,0 +1,37 @@
+@extends('common.main')
+@section('title', 'Forum')
+@section('content')
+
+<div class="container py-4">
+
+  <h3 class="mb-4">Forum</h3>
+
+  <form method="POST" action="{{ route('post.store') }}" class="mb-5">
+    @csrf
+    <div class="mb-3">
+      <label for="title" class="form-label">Title</label>
+      <textarea class="form-control" id="title" name="title" rows="2" placeholder="Post title" required> {{ $post->title }} </textarea>
+    </div>
+    <div class="mb-3">
+      <label for="description" class="form-label">Description</label>
+      <textarea class="form-control" id="description" name="description" rows="4" placeholder="Write your post..." required> {{ $post->description }} </textarea>
+    </div>
+
+    <div class="mb-3">
+      <label for="status" class="form-label">Status</label>
+        <select class="form-select" id="status" name="status" required>
+                @foreach ($status as $stat)
+                   @if ($post->status == $stat->id)
+                        <option value="{{ $stat->id }}" selected>{{ $stat->name }}</option>
+                    @else
+                        <option value="{{ $stat->id }}" selected>{{ $stat->name }}</option>
+                    @endif
+                @endforeach
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+
+
+</div>
+@endsection
