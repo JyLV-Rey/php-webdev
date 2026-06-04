@@ -20,6 +20,8 @@ Route::group(['prefix' => 'post'], function () {
     Route::post('' , [PostController::class, 'store'])->name('post.store');
     Route::get('edit/{id}', [PostController::class, 'editForm'])->name('post.edit');
     Route::post('edit/{id}', [PostController::class, 'update'])->name('post.update');
+    Route::delete('delete/{id}', [PostController::class, 'delete'])->name('post.delete');
+    Route::get('search', [PostController::class, 'search'])->name('post.search');
 });
 
 Route::get('register', [UserController::class, 'index'])->name('register');
@@ -36,6 +38,7 @@ Route::group(['prefix' => 'user'], function () {
     Route::get('delete', [UserController::class, 'index'])->name('userDelete');
 
     Route::get('edit/{id}/{name}', [UserController::class, 'userEditParam'])->name('userEdit');
+
 });
 
 Route::fallback([FallbackController::class, 'index']);

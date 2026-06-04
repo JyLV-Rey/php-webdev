@@ -29,6 +29,21 @@
     <button type="submit" class="btn btn-primary">Submit</button>
   </form>
 
+    <h3 class="mb-4">Search</h3>
+
+  <form class="mb-3" action={{ route('post.search') }}>
+        <input class="form-control mr-sm-2" type="search" placeholder="Search"name="param" aria-label="Search">
+        <select class="form-select" id="column" name="column" required>
+            <option value="title" selected>title</option>
+            <option value="description" selected>description</option>
+        </select>
+        <select class="form-select" id="sort" name="sort" required>
+            <option value="ascending" selected>ascending</option>
+            <option value="descending" selected>descending</option>
+        </select>
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+  </form>
+
   <div class="table-responsive">
     <table class="table table-bordered table-hover align-middle">
       <thead class="table-light">
@@ -49,10 +64,20 @@
           <td>{{ $post->created_by_name }}</td>
           <td>{{ $post->status_display_name }}</td>
           <td>{{ $post->created_at }}</td>
-          <td>
+          <td class="text-center">
             @if($post->status_name != 'published')
-            <a class="bi bi-pencil-square" href={{ 'post/edit/' . $post->id }}></a>
-            <a class="bi bi-trash red alert-delete" href=""></a>
+            <a class="bi bi-pencil-square d-inline" href={{ 'post/edit/' . $post->id }}></a>
+
+            <form action="{{ route('post.delete', $post->id)}}" class="d-inline" method="POST">
+                @csrf
+                @method('delete')
+
+                <button class="btn btn-link" type="submit">
+                    <i class="bi bi-trash red alert-delete d-inline"></i>
+                </button>
+            </form>
+
+
             @endif
           </td>
         </tr>

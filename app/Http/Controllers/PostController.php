@@ -75,5 +75,30 @@ class PostController extends Controller
 
         return redirect()->route('post.index');
     }
-}
 
+    public function delete($id) {
+
+        Log::info("DELETE CALLED - id: ".$id);
+        $affected = DB::table('post')
+            ->where('id', '=', $id)
+            ->delete();
+
+        Log::info("Deleted Post id: ".$id." - rows affected: ".$affected);
+        return redirect()->route('post.index');
+    }
+
+    public function search(Request $request) {
+
+        $posts = DB::table('post')
+            ->leftJoin('status', 'post.status', '=', 'status.id')
+            ->leftJoin('users', 'post.created_by', '=', 'users.id')
+            ->select('post.*', 'status.display_name as status_display_name', 'status.name as status_name', 'users.first_name as created_by_name')
+            ->where("title", 'like', "%{$request->param}%")
+            ->orWhere("description", "like", "%{$request->param}%")
+            ->get();
+        $status = DB::table('status')->select('*')->get();
+        $users = DB::table('users')->select('*')->get();
+
+        return view('post.index', compact('posts', 'status', 'users'));
+    }
+}
