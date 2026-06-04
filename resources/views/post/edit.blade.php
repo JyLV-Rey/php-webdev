@@ -6,6 +6,15 @@
 
   <h3 class="mb-4">Forum</h3>
 
+          @if ($errors->any())
+          <div class="alert alert-danger" role="alert">
+            @foreach ($errors->all() as $error)
+            <ul class="mb-0">
+              <li>{{ $error }}</li>
+            </ul>
+            @endforeach
+          </div>
+          @endif
   <form method="POST" action="{{ route('post.update', $post->id) }}" class="mb-5">
     @csrf
     <div class="mb-3">

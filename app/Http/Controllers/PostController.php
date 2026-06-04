@@ -56,6 +56,12 @@ class PostController extends Controller
     public function update(Request $request, $id) {
         Log::info("UPDATE CALLED - id: ".$id.", title: ".$request->title.", status: ".$request->status);
 
+        $request->validate([
+            'title' => 'required',
+            'description' => 'required',
+            'status' => 'required'
+        ]);
+
         $affected = DB::table('post')
             ->where('id', '=', $id)
             ->update([
